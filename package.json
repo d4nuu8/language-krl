@@ -1,0 +1,17 @@
+{
+  "name": "language-krl",
+  "main": "./lib/language-krl",
+  "version": "0.1.0",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "description": "KRL (KUKA Robot Language) language support in Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d4nuu8/language-krl"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/d4nuu8/language-krl/issues"
+  }
+}

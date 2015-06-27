@@ -1,0 +1,10 @@
+'.source.krl':
+  'editor':
+    'autoIndentOnPaste': true
+    'softTabs': true
+    'tabLength': 2
+    'foldingStartMarker': '(?i)^;FOLD'
+    'foldingStopMarker': '(?i)^;ENDFOLD'
+    'commentStart': ';'
+    'increaseIndentPattern': '(?i)^\\s*(FOR|IF\\b.*THEN|ELSE|LOOP|REPEAT|SWITCH|WHILE|DEFFCT|DEF|(!?SWITCH.*)CASE|DEFAULT)\\b.*\\s*$'
+    'decreaseIndentPattern': '(?i)^\\s*(END(FOR|IF|LOOP|REPEAT|SWITCH|WHILE|FCT)?|ELSE|UNTIL|CASE|DEFAULT)\\b\\s*$'
