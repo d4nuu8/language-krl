@@ -111,14 +111,6 @@
   'storage':
     'patterns': [
       {
-        'match': '(?i)\\b(INT|REAL|BOOL|CHAR|AXIS|E6AXIS|FRAME|POS|E6POS|ENUM|STRUC)\\b'
-        'name': 'storage.type.krl'
-      }
-      {
-        'match': '(?i)\\b(CONST|GLOBAL|DECL)\\b|(:(IN|OUT))'
-        'name': 'storage.modifier.krl'
-      }
-      {
         'match': '(?i)\\s*\\b(GLOBAL\\b)?\\s*(ENUM|STRUC)\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\b\\s*(.*)$'
         'captures':
           '1':
@@ -131,6 +123,28 @@
             'patterns' : [
               'include' : '$self'
             ]
+      }
+      {
+        'match': '(?i)\\s*\\b(DECL\\b|GLOBAL\\b)+\\s*(GLOBAL\\b)?\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\b\\s*(.*)$'
+        'captures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'name': 'storage.modifier.krl'
+          '3':
+            'name': 'entity.name.type.krl'
+          '4':
+            'patterns' : [
+              'include' : '$self'
+            ]
+      }
+      {
+        'match': '(?i)\\b(INT|REAL|BOOL|CHAR|AXIS|E6AXIS|FRAME|POS|E6POS|ENUM|STRUC)\\b'
+        'name': 'storage.type.krl'
+      }
+      {
+        'match': '(?i)\\b(CONST|GLOBAL|DECL)\\b|(:(IN|OUT))'
+        'name': 'storage.modifier.krl'
       }
     ]
 
