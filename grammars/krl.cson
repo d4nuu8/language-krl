@@ -143,7 +143,7 @@
         'name': 'storage.type.krl'
       }
       {
-        'match': '(?i)\\b(CONST|GLOBAL|DECL)\\b|(:(IN|OUT))'
+        'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT)\\b|(:(IN|OUT))'
         'name': 'storage.modifier.krl'
       }
     ]
@@ -151,12 +151,12 @@
   'keyword':
     'patterns': [
       {
-        'match': '(?i)\\b(CONTINUE|EXIT|FOR|TO|STEP|ENDFOR|GOTO|HALT|IF|THEN|ELSE|ENDIF|LOOP|ENDLOOP|REPEAT|UNTIL|SWITCH|CASE|DEFAULT|ENDSWITCH|WAIT\\s*(FOR|SEC)|WHILE|ENDWHILE|RETURN)\\b'
+        'match': '(?i)\\b(CONTINUE|EXIT|FOR|TO|STEP|ENDFOR|GOTO|HALT|IF|THEN|ELSE|ENDIF|LOOP|ENDLOOP|REPEAT|UNTIL|SWITCH|CASE|DEFAULT|ENDSWITCH|WAIT\\s*(FOR|SEC)|WHILE|ENDWHILE|RETURN|BRAKE|RESUME)\\b'
         'name': 'keyword.control.krl'
       }
       {
-        'match': '((\\b|\\bB_)(NOT|AND|OR|EXOR)\\b)|(,|\\+|-|\\*|/|:|={1,2}|<>|<|>|<=|>=)'
-        'name': 'keyword.operator.krl'
+        'match': '(?i)(\\b(B_)?(AND|OR|EXOR)\\b)|(\\.|,|\\+|-|\\*|\\/|:|(?<!=)={1,2}|<>|<|>|<=|>=)'
+        'name': 'keyword.operator.logical.krl'
       }
       {
         'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
