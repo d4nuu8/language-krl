@@ -99,7 +99,7 @@
         'name': 'constant.language,krl'
       }
       {
-        'match': '([0-9]+(\\.[0-9]+)?)'
+        'match': '\\b([0-9]+(\\.[0-9]+)?)\\b'
         'name': 'constant.numeric.krl'
       }
       {
@@ -117,6 +117,22 @@
       {
         'match': '(?i)\\b(CONST|GLOBAL|DECL)\\b|(:(IN|OUT))'
         'name': 'storage.modifier.krl'
+      }
+      {
+        'match': '(?i)\\s*\\b(DECL\\b)?\\s*(GLOBAL)\\b\\s*(ENUM)\\b\\s*([A-Za-z_\\$][A-Za-z0-9_$]{0,23})\\b\\s*(.*)$'
+        'captures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'name': 'storage.modifier.krl'
+          '3':
+            'name': 'storage.type.krl'
+          '4':
+            'name': 'entity.name.type.krl'
+          '5':
+            'patterns' : [
+              'include' : '$self'
+            ]
       }
     ]
 
