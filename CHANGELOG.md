@@ -1,3 +1,5 @@
+## 0.3.1 - Minor improvements and bugfixes
+
 ## 0.3.0 - Syntax improvements
 * Added syntax highlighting for structures
 * Added syntax highlighting for enumerations
