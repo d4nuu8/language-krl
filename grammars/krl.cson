@@ -38,7 +38,7 @@
   'function':
     'patterns': [
       {
-        'begin': '(?i)^\\s*(GLOBAL\\s*)?(DEFFCT)\\s*([A-Za-z_$][A-Za-z0-9_$]{0,23})\\s*([A-Za-z_$][A-Za-z0-9_$]{0,23})\\s*(\\(.*\\))'
+        'begin': '(?i)^\\s*(GLOBAL\\s*)?(DEFFCT)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(\\(.*\\))'
         'beginCaptures':
           '1':
             'name': 'storage.modifier.krl'
@@ -65,7 +65,7 @@
         ]
       }
       {
-        'begin': '(?i)\\s*(\\bGLOBAL\\b|)\\s*(\\bDEF\\b)\\s*([A-Za-z_$][A-Za-z0-9_$]{0,23})'
+        'begin': '(?i)\\s*(\\bGLOBAL\\b|)\\s*(\\bDEF\\b)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})'
         'beginCaptures':
           '1':
             'name': 'storage.modifier.krl'
@@ -103,7 +103,7 @@
         'name': 'constant.numeric.krl'
       }
       {
-        'match': '#[A-Za-z_$][A-Za-z0-9_$]{0,23}\\b'
+        'match': '#[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}\\b'
         'name': 'constant.other.krl'
       }
     ]
@@ -119,17 +119,15 @@
         'name': 'storage.modifier.krl'
       }
       {
-        'match': '(?i)\\s*\\b(DECL\\b)?\\s*(GLOBAL)\\b\\s*(ENUM)\\b\\s*([A-Za-z_\\$][A-Za-z0-9_$]{0,23})\\b\\s*(.*)$'
+        'match': '(?i)\\s*\\b(GLOBAL\\b)?\\s*(ENUM|STRUC)\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\b\\s*(.*)$'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
           '2':
             'name': 'storage.modifier.krl'
           '3':
-            'name': 'storage.type.krl'
-          '4':
             'name': 'entity.name.type.krl'
-          '5':
+          '4':
             'patterns' : [
               'include' : '$self'
             ]
@@ -147,7 +145,7 @@
         'name': 'keyword.operator.krl'
       }
       {
-        'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_$][A-Za-z0-9_$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
+        'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
@@ -155,7 +153,7 @@
             'name': 'storage.modifier.krl'
       }
       {
-        'match': '(?i)\\b(LIN|LIN_REL)\\b\\s*[A-Za-z_$][A-Za-z0-9_$]{0,23}(\\s*$|\\s*(C_DIS|C_ORI|C_VEL))\\s*'
+        'match': '(?i)\\b(LIN|LIN_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\s*(C_DIS|C_ORI|C_VEL))\\s*'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
