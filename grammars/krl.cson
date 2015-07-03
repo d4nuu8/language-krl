@@ -62,6 +62,9 @@
               {
                 'include': '#keyword'
               }
+              {
+                'include': '#comment'
+              }
             ]
         'end': '(?i)^\\s*(ENDFCT)\\s+(;.*)?$'
         'endCaptures':
@@ -93,16 +96,33 @@
               {
                 'include': '#keyword'
               }
+              {
+                'include': '#comment'
+              }
             ]
           'name': 'meta.function.krl'
       }
       {
-        'begin': '(?i)^\\s*(DEF)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\(\\s*\\)'
+        'begin': '(?i)^\\s*(GLOBAL\\s+)?(DEF)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
         'beginCaptures':
           '1':
-            'name': 'storage.tpye.function.krl'
+            'name': 'storage.modifier.krl'
           '2':
+            'name': 'storage.tpye.function.krl'
+          '3':
             'name': 'entity.name.function.krl'
+          '4':
+            'patterns': [
+              {
+                'include': '#variable.parameter'
+              }
+              {
+                'include': '#keyword'
+              }
+              {
+                'include': '#comment'
+              }
+            ]
         'end': '(?i)^\\s*(END)\\s*(;.*)?$'
         'endCaptures':
           '1':
@@ -346,11 +366,17 @@
   'variable.parameter':
     'patterns': [
       {
-        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(:IN|:OUT)'
+        'match': '(?i)([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(\\[,*\\])?(:IN|:OUT)'
         'captures':
           '1':
             'name': 'variable.paramter.function.krl'
           '2':
+            'patterns': [
+              {
+                'include': '#keywords'
+              }
+            ]
+          '3':
             'name': 'storage.modifier.krl'
       }
     ]

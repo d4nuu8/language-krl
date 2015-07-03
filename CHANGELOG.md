@@ -1,6 +1,7 @@
 ## 0.5.0 - Syntax improvements
 * Added syntax highlighting for interrupts
 * Added syntax highlighting for triggers
+* Improved function matching
 * Minor bug fixes
 
 
