@@ -30,6 +30,9 @@
   {
     'include': '#keyword'
   }
+  {
+    #'include': '#function-calls'
+  }
 ]
 
 'repository':
@@ -37,6 +40,10 @@
     'patterns': [
       {
         'match': ';.*$'
+        'name': 'comment.line.character.krl'
+      }
+      {
+        'match': '&.*$'
         'name': 'comment.line.character.krl'
       }
     ]
@@ -135,6 +142,26 @@
           'include': '$self'
         ]
         'name': 'meta.function.krl'
+      }
+    ]
+
+  'function-calls':
+    'patterns': [
+      {
+        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(\\()(.*)(\\))'
+        'captures':
+          '1':
+            'name': 'entity.name.function.krl'
+          '2':
+            'name': 'keyword.operator.krl'
+          '3':
+            'patterns': [
+              {
+                'include': '#variable.parameter'
+              }
+            ]
+          '4':
+            'name': 'keyword.operator.krl'
       }
     ]
 
