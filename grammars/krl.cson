@@ -16,10 +16,10 @@
     'include': '#function'
   }
   {
-    'include': '#constant'
+    'include': '#storage'
   }
   {
-    'include': '#storage'
+    'include': '#constant'
   }
   {
     'include': '#keyword'
@@ -38,24 +38,29 @@
   'function':
     'patterns': [
       {
-        'begin': '(?i)^\\s*(GLOBAL\\s*)?(DEFFCT)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(\\(.*\\))'
+        'begin': '(?i)^\\s*(GLOBAL\\s*)?(DEFFCT)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
         'beginCaptures':
           '1':
             'name': 'storage.modifier.krl'
           '2':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.tpye.function.krl'
           '3':
             'name': 'storage.type.krl'
           '4':
             'name': 'entity.name.function.krl'
           '5':
             'patterns' : [
-                'include' : '$self'
+              {
+                'include': '#variable.parameter'
+              }
+              {
+                'include': '#keyword'
+              }
             ]
         'end': '(?i)^\\s*(ENDFCT)\\s*(;.*)?$'
         'endCaptures':
           '1':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.type.function.krl'
           '2':
             'patterns' : [
                 'include' : '#comment'
@@ -63,23 +68,47 @@
         'patterns': [
           'include': '$self'
         ]
+        'name': 'meta.function.krl'
       }
       {
-        'begin': '(?i)\\s*(\\bGLOBAL\\b|)\\s*(\\bDEF\\b)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})'
-        'beginCaptures':
+        'match': '(?i)^\\s*(EXTFCT)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
+        'captures':
           '1':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.tpye.function.krl'
           '2':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.type.krl'
           '3':
             'name': 'entity.name.function.krl'
-        'end': '(?i)^\\s*(\\bEND\\b)'
+          '4':
+            'patterns': [
+              {
+                'include': '#variable.parameter'
+              }
+              {
+                'include': '#keyword'
+              }
+            ]
+          'name': 'meta.function.krl'
+      }
+      {
+        'begin': '(?i)^\\s*(DEF)\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\(\\s*\\)'
+        'beginCaptures':
+          '1':
+            'name': 'storage.tpye.function.krl'
+          '2':
+            'name': 'entity.name.function.krl'
+        'end': '(?i)^\\s*(END)\\s*(;.*)?$'
         'endCaptures':
           '1':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.type.function.krl'
+          '2':
+            'patterns' : [
+                'include' : '#comment'
+            ]
         'patterns': [
           'include': '$self'
         ]
+        'name': 'meta.function.krl'
       }
     ]
 
@@ -125,17 +154,17 @@
             ]
       }
       {
-        'match': '(?i)\\s*\\b(DECL\\b|GLOBAL\\b)+\\s*(GLOBAL\\b)?\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\b\\s*(.*)$'
+        'match': '(?i)^\\s*\\b(DECL GLOBAL|DECL|GLOBAL){1}\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(.*)$'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
           '2':
-            'name': 'storage.modifier.krl'
+            'name': 'storage.type.krl'
           '3':
-            'name': 'entity.name.type.krl'
-          '4':
-            'patterns' : [
-              'include' : '$self'
+            'patterns': [
+              {
+                'include': '#variable'
+              }
             ]
       }
       {
@@ -143,7 +172,7 @@
         'name': 'storage.type.krl'
       }
       {
-        'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT)\\b|(:(IN|OUT))'
+        'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT|EXTFCT)\\b'
         'name': 'storage.modifier.krl'
       }
     ]
@@ -173,5 +202,25 @@
             'name': 'storage.modifier.krl'
           '3':
             'name': 'storage.modifier.krl'
+      }
+    ]
+
+  'variable.parameter':
+    'patterns': [
+      {
+        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(:IN|:OUT)'
+        'captures':
+          '1':
+            'name': 'variable.paramter.function.krl'
+          '2':
+            'name': 'storage.modifier.krl'
+      }
+    ]
+
+  'variable.other':
+    'patterns': [
+      {
+        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})*'
+        'name': 'variable.other.krl'
       }
     ]
