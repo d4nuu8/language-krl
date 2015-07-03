@@ -1,3 +1,8 @@
+## 0.5.0 - Syntax improvements
+* Added syntax highlighting for interrupts
+* Minor bug fixes
+
+
 ## 0.4.0 - Syntax improvements
 * Improved function matching
 
