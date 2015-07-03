@@ -1,3 +1,6 @@
+## 0.4.0 - Syntax improvements
+* Improved function matching
+
 ## 0.3.1 - Minor improvements and bugfixes
 
 ## 0.3.0 - Syntax improvements
