@@ -19,6 +19,9 @@
     'include': '#interrupt'
   }
   {
+    'include': '#trigger'
+  }
+  {
     'include': '#storage'
   }
   {
@@ -118,7 +121,7 @@
   'interrupt':
     'patterns': [
       {
-        'match': '(?i)^\\s*(GLOBAL\\s+)?(INTERRUPT)\\s+(DECL)\\s+([0-9]+)\\s+(WHEN)\\s+(.*)\\s+(DO)\\s+(.*)'
+        'match': '(?i)^\\s*(GLOBAL\\s+)?(INTERRUPT)\\s+(DECL)\\s+([0-9]+)\\s+(WHEN)\\s+(.*)\\s+(DO)\\s+(.*)$'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
@@ -156,6 +159,94 @@
           '3':
             'name': 'constant.numeric.krl'
         'name': 'meta.interrupt.krl'
+      }
+    ]
+
+  'trigger':
+    'patterns': [
+      {
+        'match': '(?i)^\\s*(TRIGGER)\\s+(WHEN)\\s+(DISTANCE)(\\=)(0|1)\\s+(DELAY)(\\=)([-+]?[0-9]*\\.?[0-9])\\s+(DO)(.*)'
+        'captures':
+          '1':
+            'name': 'storage.type.trigger.krl'
+          '2':
+            'name': 'storage.type.trigger.krl'
+          '3':
+            'name': 'keyword.control.krl'
+          '4':
+            'name': 'keyword.operator.krl'
+          '5':
+            'name': 'constant.numeric.krl'
+          '6':
+            'name': 'keyword.control.krl'
+          '7':
+            'name': 'keyword.operator.krl'
+          '8':
+            'name': 'constant.numeric.krl'
+          '9':
+            'name': 'keyword.control.krl'
+          '10':
+            'patterns': [
+              {
+                'include': '#trigger-action'
+              }
+            ]
+        'name': 'meta.trigger.krl'
+      }
+      {
+        'match': '(?i)^\\s*(TRIGGER)\\s+(WHEN)\\s+(PATH)(\\=)([-+]?[0-9]*\\.?[0-9])\\s+(DELAY)(\\=)([-+]?[0-9]*\\.?[0-9])\\s+(DO)(.*)'
+        'captures':
+          '1':
+            'name': 'storage.type.trigger.krl'
+          '2':
+            'name': 'storage.type.trigger.krl'
+          '3':
+            'name': 'keyword.control.krl'
+          '4':
+            'name': 'keyword.operator.krl'
+          '5':
+            'name': 'constant.numeric.krl'
+          '6':
+            'name': 'keyword.control.krl'
+          '7':
+            'name': 'keyword.operator.krl'
+          '8':
+            'name': 'constant.numeric.krl'
+          '9':
+            'name': 'keyword.control.krl'
+          '10':
+            'patterns': [
+              {
+                'include': '#trigger-action'
+              }
+            ]
+        'name': 'meta.trigger.krl'
+      }
+    ]
+
+  'trigger-action':
+    'patterns': [
+      {
+        'match': '(?i)(.*)(PRIO)(\\=)([-+]?[0-9]*\\.?[0-9])(.*)'
+        'captures':
+          '1':
+            'patterns': [
+              {
+                'include': '$self'
+              }
+            ]
+          '2':
+            'name': 'keyword.control.krl'
+          '3':
+            'name': 'keyword.operator.krl'
+          '4':
+            'name': 'constant.numeric.krl'
+          '5':
+            'patterns': [
+              {
+                'include': '#comment'
+              }
+            ]
       }
     ]
 
@@ -231,8 +322,8 @@
         'name': 'keyword.control.krl'
       }
       {
-        'match': '(?i)(\\b(B_)?(AND|OR|EXOR)\\b)|(\\.|,|\\+|-|\\*|\\/|:|(?<!=)={1,2}|<>|<|>|<=|>=)'
-        'name': 'keyword.operator.logical.krl'
+        'match': '(?i)(\\b(B_)?(AND|OR|EXOR)\\b)|(\\.|,|\\+|-|\\*|\\/|:|(?<!=)={1,2}|<>|<|>|<=|>=|\\(|\\))'
+        'name': 'keyword.operator.krl'
       }
       {
         'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
