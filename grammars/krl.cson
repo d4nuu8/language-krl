@@ -143,6 +143,34 @@
         ]
         'name': 'meta.function.krl'
       }
+      {
+        'begin': '(?i)^\\s*(DEFDAT)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(\\s+PUBLIC)?(.*)'
+        'beginCaptures':
+          '1':
+            'name': 'storage.tpye.function.krl'
+          '2':
+            'name': 'entity.name.function.krl'
+          '3':
+            'name': 'storage.modifier.krl'
+          '4':
+            'patterns': [
+              {
+                'include': '#comment'
+              }
+            ]
+        'end': '(?i)^\\s*(ENDDAT)\\s*(;.*)?$'
+        'endCaptures':
+          '1':
+            'name': 'storage.type.function.krl'
+          '2':
+            'patterns' : [
+                'include' : '#comment'
+            ]
+        'patterns': [
+          'include': '$self'
+        ]
+        'name': 'meta.function.krl'
+      }
     ]
 
   'function-calls':
