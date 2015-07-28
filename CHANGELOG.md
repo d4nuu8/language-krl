@@ -1,3 +1,5 @@
+## 0.5.1 - Minor improvements and bugfixes
+
 ## 0.5.0 - Syntax improvements
 * Added syntax highlighting for interrupts
 * Added syntax highlighting for triggers
