@@ -1,7 +1,7 @@
 {
   "name": "language-krl",
   "main": "./lib/language-krl",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
