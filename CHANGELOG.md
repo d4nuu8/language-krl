@@ -1,3 +1,6 @@
+## Next release
+* Add submit interpreter files (\*.sub) to automatic detected file types
+
 ## 0.5.1 - Minor improvements and bugfixes
 
 ## 0.5.0 - Syntax improvements
