@@ -3,6 +3,7 @@
 'fileTypes': [
   'src'
   'dat'
+  'sub'
 ]
 
 'patterns': [
