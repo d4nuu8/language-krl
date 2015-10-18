@@ -1,4 +1,4 @@
-## Next release
+## 0.6.0 - Syntax improvements
 * Added submit interpreter files (\*.sub) to automatic detected file types
 * Improved indentation
 * Match interrupts where the number is not a numeric value
