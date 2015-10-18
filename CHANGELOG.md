@@ -1,6 +1,8 @@
 ## Next release
 * Added submit interpreter files (\*.sub) to automatic detected file types
 * Improved indentation
+* Match interrupts where the number is not a numeric value
+* Match function calls
 
 ## 0.5.1 - Minor improvements and bugfixes
 
