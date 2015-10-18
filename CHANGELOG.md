@@ -1,5 +1,6 @@
 ## Next release
-* Add submit interpreter files (\*.sub) to automatic detected file types
+* Added submit interpreter files (\*.sub) to automatic detected file types
+* Improved indentation
 
 ## 0.5.1 - Minor improvements and bugfixes
 

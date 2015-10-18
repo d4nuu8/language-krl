@@ -5,5 +5,31 @@
     'tabLength': 2
     'preferredLineLength': 52
     'commentStart': ';'
-    'increaseIndentPattern': '(?i)^(\\s*|\\b)(FOR|IF\\b.*THEN|ELSE|LOOP|REPEAT|SWITCH|WHILE|CASE|DEFAULT)\\b\\s*(;.*)?$'
-    'decreaseIndentPattern': '(?i)^(\\s*|\\b)(END(FOR|IF|LOOP|REPEAT|SWITCH|WHILE|FCT)?|ELSE|UNTIL|CASE|DEFAULT)\\b\\s*(;.*)?$'
+    'increaseIndentPattern': '(?xi)
+      ^\\s*
+      (
+        FOR.*
+        | IF.*
+        | ELSE
+        | LOOP
+        | REPEAT
+        | WHILE.*
+        | SWITCH.*
+        | CASE.*
+        | DEFAULT.*
+      )
+      \\s*(;.*)?$'
+    'decreaseIndentPattern': '(?xi)
+      ^\\s*
+      (
+        ENDFOR
+        | ELSE
+        | ENDIF
+        | ENDLOOP
+        | UNTIL.*
+        | ENDWHILE
+        | ENDSWITCH
+        | CASE.*
+        | DEFAULT.*
+      )
+      \\s*(;.*)?$'
