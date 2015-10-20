@@ -1,4 +1,4 @@
-## 7.0.0 - Syntax improvements
+## 0.7.0 - Syntax improvements
 * Started redesign of complete matching
 * Better function matching
 * Bug fixes
