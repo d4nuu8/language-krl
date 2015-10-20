@@ -1,3 +1,9 @@
+## 7.0.0 - Syntax improvements
+* Started redesign of complete matching
+* Better function matching
+* Bug fixes
+* Added to do list
+
 ## 0.6.0 - Syntax improvements
 * Added submit interpreter files (\*.sub) to automatic detected file types
 * Improved indentation

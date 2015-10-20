@@ -7,40 +7,13 @@
 ]
 
 'patterns': [
-  {
-    'include': '#comments'
-  }
-  {
-    'include': '#strings'
-  }
-  {
-    'include': '#function'
-  }
-  {
-    'include': '#interrupt'
-  }
-  {
-    'include': '#signal'
-  }
-  {
-    'include': '#trigger'
-  }
-  {
-    'include': '#storage'
-  }
-  {
-    'include': '#constants'
-  }
-  {
-    'include': '#keyword'
-  }
-  {
-    'include': '#function-calls'
-  }
+  { 'include': '#comment' }
+  { 'include': '#string' }
+  { 'include': '#function' }
 ]
 
 'repository':
-  'comments':
+  'comment':
     'patterns': [
       {
         'match': ';.*$'
@@ -52,15 +25,164 @@
       }
     ]
 
-  'identifiers':
+  'string':
     'patterns': [
       {
-        'match': '[A-Za-z_\\$][A-Za-z0-9_\\$]{24,}'
-        'name': 'invalid.illegal.krl'
+        'begin': '\"'
+        'end': '\"'
+        'name': 'string.quoted.double.krl'
       }
     ]
 
-  'constants':
+  'function':
+    'patterns': [
+      {
+        'begin': '(?i)^\\s*(GLOBAL\\s+)?(DEFFCT)\\s+(\\S+)\\s+(\\S+)\\s*\\((.*?)\\)\\s*(.*)$'
+        'beginCaptures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'name': 'storage.tpye.function.krl'
+          '3':
+            'patterns': [
+              { 'include': '#identifier.type' }
+              { 'include': '#invalid' }
+            ]
+          '4':
+            'patterns': [
+              { 'include': '#identifier.function' }
+              { 'include': '#invalid' }
+            ]
+          '5':
+            'patterns': [
+              { 'include': '#function.parameter' }
+              # { 'include': '#invalid' }
+            ]
+          '6':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'end': '(?i)^\\s*(ENDFCT)\\s+(.*)$'
+        'endCaptures':
+          '1':
+            'name': 'storage.type.function.krl'
+          '2':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'patterns': [
+          'include': '#function.body'
+        ]
+        'name': 'meta.function.krl'
+      }
+      {
+        'begin': '(?i)^\\s*(GLOBAL\\s+)?(DEF)\\s+(\\S+)\\s*\\((.*?)\\)\\s*(.*)$'
+        'beginCaptures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'patterns': [
+              { 'include': '#identifier.type' }
+              { 'include': '#invalid' }
+            ]
+          '3':
+            'patterns': [
+              { 'include': '#identifier.function' }
+              { 'include': '#invalid' }
+            ]
+          '4':
+            'patterns': [
+              { 'include': '#function.parameter' }
+              # { 'include': '#invalid' }
+            ]
+          '5':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'end': '(?i)^\\s*(END)\\s+(.*)$'
+        'endCaptures':
+          '1':
+            'name': 'storage.type.function.krl'
+          '2':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'patterns': [
+          'include': '#function.body'
+        ]
+        'name': 'meta.function.krl'
+      }
+      {
+        'begin': '(?i)^\\s*(DEFDAT)\\s+(\\S+)(\\s+PUBLIC)?(.*)$'
+        'beginCaptures':
+          '1':
+            'name': 'storage.tpye.function.krl'
+          '2':
+            'patterns': [
+              { 'include': '#identifier.function' }
+              { 'include': '#invalid' }
+            ]
+          '3':
+            'name': 'storage.modifier.krl'
+          '4':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'end': '(?i)^\\s*(ENDDAT)(.*)$'
+        'endCaptures':
+          '1':
+            'name': 'storage.type.function.krl'
+          '2':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
+            ]
+        'patterns': [
+          { 'include': '#function.body' }
+        ]
+        'name': 'meta.function.krl'
+      }
+    ]
+
+  'function.parameter':
+    'patterns': [
+      {
+        'match': '(?mi)\\s*(\\w+)\\s*:\\s*(IN|OUT)\\s*(,(.*))*?'
+        'captures':
+          '1':
+            'patterns': [
+              { 'include': '#identifier' }
+              { 'include': '#invalid' }
+            ]
+          '2':
+            'name': 'storage.modifier.krl'
+          '4':
+            'patterns': [
+              { 'include': '#function.paramater' }
+            ]
+      }
+    ]
+
+  'function.body':
+    'patterns': [
+      { 'include': '#comment' }
+      { 'include': '#string' }
+      { 'include': '#constant' }
+      { 'include': '#function.ext' }
+      { 'include': '#keyword' }
+      { 'include': '#storage' }
+      { 'include': '#function.call' }
+      { 'include': '#interrupt' }
+      { 'include': '#trigger' }
+      { 'include': '#identifier.invalid' }
+    ]
+
+  'constant':
     'patterns': [
       {
         'match': '(?i)\\b(TRUE|FALSE)\\b'
@@ -70,161 +192,130 @@
         'match': '\\b([0-9]+(\\.[0-9]+)?)\\b'
         'name': 'constant.numeric.krl'
       }
-      {
-        'match': '#[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}\\b'
-        'name': 'constant.other.krl'
-      }
     ]
 
-  'function':
+  'function.ext':
     'patterns': [
       {
-        'begin': '(?i)^\\s*(GLOBAL\\s+)?(DEFFCT)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
-        'beginCaptures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '2':
-            'name': 'storage.tpye.function.krl'
-          '3':
-            'name': 'storage.type.krl'
-          '4':
-            'name': 'entity.name.function.krl'
-          '5':
-            'patterns' : [
-              {
-                'include': '#variable.parameter'
-              }
-              {
-                'include': '#keyword'
-              }
-              {
-                'include': '#comments'
-              }
-            ]
-        'end': '(?i)^\\s*(ENDFCT)\\s+(;.*)?$'
-        'endCaptures':
-          '1':
-            'name': 'storage.type.function.krl'
-          '2':
-            'patterns' : [
-                'include' : '#comments'
-            ]
-        'patterns': [
-          'include': '$self'
-        ]
-        'name': 'meta.function.krl'
-      }
-      {
-        'match': '(?i)^\\s*(EXTFCT)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
+        'match': '(?i)^\\s*(EXTFCT)\\s+(\\S+)\\s+(\\S+)\\s*\\((.*?)\\)\\s*(.*)$'
         'captures':
           '1':
             'name': 'storage.tpye.function.krl'
           '2':
-            'name': 'storage.type.krl'
+            'patterns': [
+              { 'include': '#identifier.type' }
+              { 'include': '#invalid' }
+            ]
           '3':
-            'name': 'entity.name.function.krl'
+            'patterns': [
+              { 'include': '#identifier.function' }
+              { 'include': '#invalid' }
+            ]
           '4':
             'patterns': [
-              {
-                'include': '#variable.parameter'
-              }
-              {
-                'include': '#keyword'
-              }
-              {
-                'include': '#comments'
-              }
+              { 'include': '#function.parameter' }
+            ]
+          '5':
+            'patterns': [
+              { 'include': '#comment' }
+              { 'include': '#invalid' }
             ]
           'name': 'meta.function.krl'
       }
+    ]
+
+  'keyword':
+    'patterns': [
       {
-        'begin': '(?i)^\\s*(GLOBAL\\s+)?(DEF)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(.*)'
-        'beginCaptures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '2':
-            'name': 'storage.tpye.function.krl'
-          '3':
-            'name': 'entity.name.function.krl'
-          '4':
-            'patterns': [
-              {
-                'include': '#variable.parameter'
-              }
-              {
-                'include': '#keyword'
-              }
-              {
-                'include': '#comments'
-              }
-            ]
-        'end': '(?i)^\\s*(END)\\s*(;.*)?$'
-        'endCaptures':
-          '1':
-            'name': 'storage.type.function.krl'
-          '2':
-            'patterns' : [
-                'include' : '#comments'
-            ]
-        'patterns': [
-          'include': '$self'
-        ]
-        'name': 'meta.function.krl'
+        'match': '(?i)\\b(CONTINUE|EXIT|FOR|TO|STEP|ENDFOR|GOTO|HALT|IF|THEN|ELSE|ENDIF|LOOP|ENDLOOP|REPEAT|UNTIL|SWITCH|CASE|DEFAULT|ENDSWITCH|WAIT|FOR|SEC|WHILE|ENDWHILE|RETURN|BRAKE|RESUME)\\b'
+        'name': 'keyword.control.krl'
       }
       {
-        'begin': '(?i)^\\s*(DEFDAT)\\s+([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(\\s+PUBLIC)?(.*)'
-        'beginCaptures':
+        'match': '(?i)(\\b(B_)?(AND|OR|EXOR)\\b)|(\\.|,|\\+|-|\\*|\\/|:|(?<!=)={1,2}|<>|<|>|<=|>=|\\(|\\))'
+        'name': 'keyword.operator.krl'
+      }
+      {
+        'match': '(?i)\\b(INT|REAL|BOOL|CHAR|AXIS|E6AXIS|FRAME|POS|E6POS|ENUM|STRUC)\\b'
+        'name': 'storage.type.krl'
+      }
+      {
+        'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT|EXTFCT|SIGNAL)\\b'
+        'name': 'storage.modifier.krl'
+      }
+      {
+        'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
+        'captures':
           '1':
-            'name': 'storage.tpye.function.krl'
-          '2':
-            'name': 'entity.name.function.krl'
+            'name': 'storage.modifier.krl'
           '3':
             'name': 'storage.modifier.krl'
-          '4':
-            'patterns': [
-              {
-                'include': '#comments'
-              }
-            ]
-        'end': '(?i)^\\s*(ENDDAT)\\s*(;.*)?$'
-        'endCaptures':
+      }
+      {
+        'match': '(?i)\\b(LIN|LIN_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\s*(C_DIS|C_ORI|C_VEL))\\s*'
+        'captures':
           '1':
-            'name': 'storage.type.function.krl'
-          '2':
-            'patterns' : [
-                'include' : '#comments'
-            ]
-        'patterns': [
-          'include': '$self'
-        ]
-        'name': 'meta.function.krl'
+            'name': 'storage.modifier.krl'
+          '3':
+            'name': 'storage.modifier.krl'
       }
     ]
 
-  'function-calls':
+  'storage':
     'patterns': [
       {
-        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(\\()(.*)(\\))'
+        'match': '(?i)^\\s*(GLOBAL\\s+)?(ENUM|STRUC)\\s+(.+)'
         'captures':
           '1':
-            'name': 'entity.name.function.krl'
+            'name': 'storage.modifier.krl'
           '2':
-            'name': 'keyword.operator.krl'
+            'name': 'storage.modifier.krl'
           '3':
-            'patterns': [
-              {
-                'include': '#variable.parameter'
-              }
+            'patterns' : [
+              { 'include' : '#identifier' }
+              { 'include' : '$self' }
             ]
-          '4':
-            'name': 'keyword.operator.krl'
+      }
+      # {
+      #   'match': '(?i)^\\s*\\b(DECL GLOBAL|DECL|GLOBAL){1}\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(.*)$'
+      #   'captures':
+      #     '1':
+      #       'name': 'storage.modifier.krl'
+      #     '2':
+      #       'name': 'storage.type.krl'
+      #     '3':
+      #       'patterns': [
+      #         {
+      #           'include': '#variable'
+      #         }
+      #       ]
+      # }
+    ]
+
+  'function.call':
+    'patterns': [
+      {
+        'match': '(\\w+)\\s*\\((.*)\\)'
+        'captures':
+          '1':
+            'patterns': [
+              { 'include': '#identifier.function' }
+              { 'include': '#invalid' }
+            ]
+          '2':
+            'patterns': [
+              { 'include': '#string' }
+              { 'include': '#constant' }
+              { 'include': '#keyword' }
+              { 'include': '#identifier' }
+              # { 'include': '#invalid' }
+            ]
       }
     ]
 
   'interrupt':
     'patterns': [
       {
-        'match': '(?i)^\\s*(GLOBAL\\s+)?(INTERRUPT)\\s+(DECL)\\s+(.*)\\s+(WHEN)\\s+(.*)\\s+(DO)\\s+(.*)$'
+        'match': '(?i)^\\s*(GLOBAL\\s+)?(INTERRUPT)\\s+(DECL)\\s+(.*?)\\s+(WHEN)\\s+(.*?)\\s+(DO)\\s+(.*)'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
@@ -234,28 +325,24 @@
             'name': 'storage.type.interrupt.krl'
           '4':
             'patterns': [
-              {
-                'include': '#constants'
-              }
-              {
-                'include': '#identifiers'
-              }
+              { 'include': '#constant' }
+              { 'include': '#identifier'}
+              { 'include': '#invalid' }
             ]
           '5':
-            'name': 'storage.type.krl'
+            'name': 'storage.type.interrupt.krl'
           '6':
             'patterns': [
-              {
-                'include': '$self'
-              }
+              { 'include': '#function.body' }
             ]
           '7':
             'name': 'storage.type.interrupt.krl'
           '8':
             'patterns': [
-              {
-                'include': '$self'
-              }
+              { 'include': '#constant' }
+              { 'include': '#function.call' }
+              { 'include': '#identifier' }
+              { 'include': '#invalid' }
             ]
         'name': 'meta.interrupt.krl'
       }
@@ -268,31 +355,11 @@
             'name': 'keyword.control.krl'
           '3':
             'patterns': [
-              {
-                'include': '#constants'
-              }
-              {
-                'include': '#identifiers'
-              }
+              { 'include': '#constant' }
+              { 'include': '#identifier'}
+              { 'include': '#invalid' }
             ]
         'name': 'meta.interrupt.krl'
-      }
-    ]
-
-  'signal':
-    'patterns': [
-      {
-        'match': '(?i)^\\s*(SIGNAL)\\s+(.*)'
-        'captures':
-          '1':
-            'name': 'storage.type.signal.krl'
-          '2':
-            'patterns': [
-              {
-                'include': '$self'
-              }
-            ]
-        'name': 'meta.signal.krl'
       }
     ]
 
@@ -321,9 +388,7 @@
             'name': 'keyword.control.krl'
           '10':
             'patterns': [
-              {
-                'include': '#trigger-action'
-              }
+              { 'include': '#trigger.action' }
             ]
         'name': 'meta.trigger.krl'
       }
@@ -350,24 +415,20 @@
             'name': 'keyword.control.krl'
           '10':
             'patterns': [
-              {
-                'include': '#trigger-action'
-              }
+              { 'include': '#trigger.action' }
             ]
         'name': 'meta.trigger.krl'
       }
     ]
 
-  'trigger-action':
+  'trigger.action':
     'patterns': [
       {
         'match': '(?i)(.*)(PRIO)(\\=)([-+]?[0-9]*\\.?[0-9])(.*)'
         'captures':
           '1':
             'patterns': [
-              {
-                'include': '$self'
-              }
+              { 'include': '$self' }
             ]
           '2':
             'name': 'keyword.control.krl'
@@ -377,112 +438,46 @@
             'name': 'constant.numeric.krl'
           '5':
             'patterns': [
-              {
-                'include': '#comments'
-              }
+              { 'include': '#comment' }
             ]
       }
     ]
 
-  'strings':
+  'identifier':
     'patterns': [
       {
-        'begin': '\"'
-        'end': '\"'
-        'name': 'string.quoted.double.krl'
+        'match': '\\b[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
       }
     ]
 
-  'storage':
+  'identifier.type':
     'patterns': [
       {
-        'match': '(?i)\\s*\\b(GLOBAL\\b)?\\s*(ENUM|STRUC)\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\b\\s*(.*)$'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '2':
-            'name': 'storage.modifier.krl'
-          '3':
-            'name': 'entity.name.type.krl'
-          '4':
-            'patterns' : [
-              'include' : '$self'
-            ]
-      }
-      {
-        'match': '(?i)^\\s*\\b(DECL GLOBAL|DECL|GLOBAL){1}\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(.*)$'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '2':
-            'name': 'storage.type.krl'
-          '3':
-            'patterns': [
-              {
-                'include': '#variable'
-              }
-            ]
-      }
-      {
-        'match': '(?i)\\b(INT|REAL|BOOL|CHAR|AXIS|E6AXIS|FRAME|POS|E6POS|ENUM|STRUC)\\b'
+        'match': '\\b[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
         'name': 'storage.type.krl'
       }
+    ]
+
+  'identifier.function':
+    'patterns': [
       {
-        'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT|EXTFCT)\\b'
-        'name': 'storage.modifier.krl'
+        'match': '[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
+        'name': 'entity.name.function.krl'
       }
     ]
 
-  'keyword':
+  'identifier.invalid':
     'patterns': [
       {
-        'match': '(?i)\\b(CONTINUE|EXIT|FOR|TO|STEP|ENDFOR|GOTO|HALT|IF|THEN|ELSE|ENDIF|LOOP|ENDLOOP|REPEAT|UNTIL|SWITCH|CASE|DEFAULT|ENDSWITCH|WAIT\\s*(FOR|SEC)|WHILE|ENDWHILE|RETURN|BRAKE|RESUME)\\b'
-        'name': 'keyword.control.krl'
-      }
-      {
-        'match': '(?i)(\\b(B_)?(AND|OR|EXOR)\\b)|(\\.|,|\\+|-|\\*|\\/|:|(?<!=)={1,2}|<>|<|>|<=|>=|\\(|\\))'
-        'name': 'keyword.operator.krl'
-      }
-      {
-        'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '3':
-            'name': 'storage.modifier.krl'
-      }
-      {
-        'match': '(?i)\\b(LIN|LIN_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\s*(C_DIS|C_ORI|C_VEL))\\s*'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '3':
-            'name': 'storage.modifier.krl'
+        'match': '\\b\\d\\w*|[\\w\\d_$]{25,}'
+        'name': 'invalid.illegal.krl'
       }
     ]
 
-  'variable.parameter':
+  'invalid':
     'patterns': [
       {
-        'match': '(?i)([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})(\\[,*\\])?:(IN|OUT)'
-        'captures':
-          #'1':
-          #  'name': 'variable.paramter.function.krl'
-          '2':
-            'patterns': [
-              {
-                'include': '#keywords'
-              }
-            ]
-          '3':
-            'name': 'storage.modifier.krl'
-      }
-    ]
-
-  'variable.other':
-    'patterns': [
-      {
-        'match': '([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})*'
-        'name': 'variable.other.krl'
+        'match': '.*'
+        'name': 'invalid.illegal.krl'
       }
     ]
