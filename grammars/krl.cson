@@ -446,14 +446,14 @@
   'identifier':
     'patterns': [
       {
-        'match': '\\b[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
+        'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
       }
     ]
 
   'identifier.type':
     'patterns': [
       {
-        'match': '\\b[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
+        'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
         'name': 'storage.type.krl'
       }
     ]
@@ -461,7 +461,7 @@
   'identifier.function':
     'patterns': [
       {
-        'match': '[A-Za-z_\$][A-Za-z0-9_\$]{0,23}\\b'
+        'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
         'name': 'entity.name.function.krl'
       }
     ]
@@ -469,7 +469,7 @@
   'identifier.invalid':
     'patterns': [
       {
-        'match': '\\b\\d\\w*|[\\w\\d_$]{25,}'
+        'match': '^\\d\\w*|[\\w\\d_$]{25,}$'
         'name': 'invalid.illegal.krl'
       }
     ]
@@ -477,7 +477,7 @@
   'invalid':
     'patterns': [
       {
-        'match': '.*'
+        'match': '^.*$'
         'name': 'invalid.illegal.krl'
       }
     ]
