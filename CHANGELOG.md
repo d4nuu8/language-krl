@@ -1,4 +1,6 @@
-## 0.5.1 - Minor improvements and bugfixes
+## 0.7.2 - Minor improvements and bugfixes
+
+## 0.7.1 - Minor improvements and bugfixes
 
 ## 0.7.0 - Syntax improvements
 * Started redesign of complete matching
