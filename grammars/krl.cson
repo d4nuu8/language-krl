@@ -294,7 +294,7 @@
   'function.call':
     'patterns': [
       {
-        'match': '(\\w+)\\s*\\((.*)\\)'
+        'match': '(\\w+)\\s*\\(\\s*(.*)\\s*\\)'
         'captures':
           '1':
             'patterns': [
