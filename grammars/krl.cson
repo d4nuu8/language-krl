@@ -469,7 +469,7 @@
   'identifier.invalid':
     'patterns': [
       {
-        'match': '\\d\\w*|[\\w\\d_$]{25,}'
+        'match': '\\b\\d\\w*|[\\w\\d_$]{25,}'
         'name': 'invalid.illegal.krl'
       }
     ]
