@@ -174,8 +174,8 @@
       { 'include': '#string' }
       { 'include': '#constant' }
       { 'include': '#function.ext' }
-      { 'include': '#keyword' }
       { 'include': '#storage' }
+      { 'include': '#keyword' }
       { 'include': '#function.call' }
       { 'include': '#interrupt' }
       { 'include': '#trigger' }
@@ -191,6 +191,10 @@
       {
         'match': '\\b([0-9]+(\\.[0-9]+)?)\\b'
         'name': 'constant.numeric.krl'
+      }
+      {
+        'match': '\\B#[A-Za-z0-9_\$]{0,24}\\b'
+        'name': 'constant.other.krl'
       }
     ]
 
@@ -263,7 +267,7 @@
   'storage':
     'patterns': [
       {
-        'match': '(?i)^\\s*(GLOBAL\\s+)?(ENUM|STRUC)\\s+(.+)'
+        'match': '(?i)^\\s*(GLOBAL\\s+)?(ENUM)\\s+(\\S+)'
         'captures':
           '1':
             'name': 'storage.modifier.krl'
@@ -271,24 +275,42 @@
             'name': 'storage.modifier.krl'
           '3':
             'patterns' : [
-              { 'include' : '#identifier' }
-              { 'include' : '$self' }
+              { 'include' : '#identifier.variable.enum' }
+              { 'include' : '#invalid' }
+            ]
+          '4':
+            'patterns' : [
+              { 'include' : '#enum.definition' }
             ]
       }
-      # {
-      #   'match': '(?i)^\\s*\\b(DECL GLOBAL|DECL|GLOBAL){1}\\b\\s*([A-Za-z_\\$][A-Za-z0-9_\\$]{0,23})\\s*(.*)$'
-      #   'captures':
-      #     '1':
-      #       'name': 'storage.modifier.krl'
-      #     '2':
-      #       'name': 'storage.type.krl'
-      #     '3':
-      #       'patterns': [
-      #         {
-      #           'include': '#variable'
-      #         }
-      #       ]
-      # }
+      {
+        'match': '(?i)^\\s*(GLOBAL\\s+)?(STRUC)\\s+(\\S+)'
+        'captures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'name': 'storage.modifier.krl'
+          '3':
+            'patterns' : [
+              { 'include' : '#identifier.variable.struc' }
+              { 'include' : '#invalid' }
+            ]
+          '4':
+            'patterns' : [
+              { 'include' : '#struc.definition' }
+            ]
+      }
+      {
+        'match': '(?i)^\\s*(DECL GLOBAL|DECL|GLOBAL){1}\\s+(\\S+)'
+        'captures':
+          '1':
+            'name': 'storage.modifier.krl'
+          '2':
+            'patterns' : [
+              { 'include' : '#identifier.type' }
+              { 'include' : '#invalid' }
+            ]
+      }
     ]
 
   'function.call':
@@ -463,6 +485,22 @@
       {
         'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
         'name': 'entity.name.function.krl'
+      }
+    ]
+
+  'identifier.variable.enum':
+    'patterns': [
+      {
+        'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
+        'name': 'variable.enum.krl'
+      }
+    ]
+
+  'identifier.variable.struc':
+    'patterns': [
+      {
+        'match': '^[A-Za-z_\$][A-Za-z0-9_\$]{0,23}$'
+        'name': 'variable.struc.krl'
       }
     ]
 
