@@ -117,7 +117,7 @@
         'name': 'meta.function.krl'
       }
       {
-        'begin': '(?i)^\\s*(DEFDAT)\\s+(\\S+)(\\s+PUBLIC)?(.*)$'
+        'begin': '(?i)^\\s*(DEFDAT)\\s+(\\S+)(\\s+(PUBLIC))?\\s*(.*)$'
         'beginCaptures':
           '1':
             'name': 'storage.tpye.function.krl'
@@ -126,9 +126,9 @@
               { 'include': '#identifier.function' }
               { 'include': '#invalid' }
             ]
-          '3':
-            'name': 'storage.modifier.krl'
           '4':
+            'name': 'storage.modifier.krl'
+          '5':
             'patterns': [
               { 'include': '#comment' }
               { 'include': '#invalid' }
