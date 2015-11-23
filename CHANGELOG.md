@@ -1,3 +1,7 @@
+## 0.8.1 - Minor improvements and bugfixes
+* Mark non ascii characters as invalid
+* Minor bug fixes
+
 ## 0.8.0 - Syntax improvements
 * Improved matching of variable definitions and declarations
 * Minor bug fixes
