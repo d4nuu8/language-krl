@@ -177,6 +177,7 @@
       { 'include': '#storage' }
       { 'include': '#keyword' }
       { 'include': '#function.call' }
+      { 'include': '#movement' }
       { 'include': '#interrupt' }
       { 'include': '#trigger' }
       { 'include': '#identifier.invalid' }
@@ -245,22 +246,6 @@
       {
         'match': '(?i)\\b(CONST|GLOBAL|DECL|DEFFCT|EXTFCT|SIGNAL)\\b'
         'name': 'storage.modifier.krl'
-      }
-      {
-        'match': '(?i)\\b(PTP|PTP_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\sC_PTP(\\s*$|\\s*(C_DIS|C_ORI|C_VEL)))\\s*'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '3':
-            'name': 'storage.modifier.krl'
-      }
-      {
-        'match': '(?i)\\b(LIN|LIN_REL)\\b\\s*[A-Za-z_\\$][A-Za-z0-9_\\$]{0,23}(\\s*$|\\s*(C_DIS|C_ORI|C_VEL))\\s*'
-        'captures':
-          '1':
-            'name': 'storage.modifier.krl'
-          '3':
-            'name': 'storage.modifier.krl'
       }
     ]
 
@@ -331,6 +316,14 @@
               { 'include': '#identifier' }
               # { 'include': '#invalid' }
             ]
+      }
+    ]
+
+  'movement':
+    'patterns': [
+      {
+        'match': '(?i)\\b(PTP|PTP_REL|LIN|LIN_REL|CIRC|CIRC_REL|SPLINE|ENDSPLINE|SPL|SLIN|SCIRC|C_(PTP|VEL|DIS|ORI)|WITH|CA|TIME_BLOCK|START|PART|END)\\b'
+        'name': 'storage.modifier.krl'
       }
     ]
 
