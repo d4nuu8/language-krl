@@ -1,0 +1,13 @@
+{
+  ".source.krl": {
+    "editor": {
+    "autoIndentOnPaste": true,
+    "softTabs": true,
+    "tabLength": 2,
+    "preferredLineLength": 52,
+    "commentStart": ";",
+    "increaseIndentPattern": "(?xi)^\\s*(FOR.*|IF.*|ELSE|LOOP|REPEAT|WHILE.*|SWITCH.*|CASE.*|DEFAULT.*)\\s*(;.*)?$",
+    "decreaseIndentPattern": "(?xi)^\\s*(ENDFOR|ELSE|ENDIF|ENDLOOP|UNTIL.*|ENDWHILE|ENDSWITCH|CASE.*|DEFAULT.*)\\s*(;.*)?$"
+    }
+  }
+}
