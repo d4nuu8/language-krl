@@ -1,3 +1,9 @@
+## 1.0.0 - Syntax improvements
+* Added highlighting of binary integer values
+* Added highlighting of numerical values in exponential representation
+* Highlighting of multi line strings as invalid
+* Bug fixes
+
 ## 0.8.1 - Minor improvements and bugfixes
 * Mark non ascii characters as invalid
 * Minor bug fixes
